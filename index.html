@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ministério Hangar - Sistema</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#F8FAF9] text-slate-800 antialiased font-sans min-h-screen flex flex-col">
+
+    <!-- ================= 1. TELA DE LOGIN ================= -->
+    <div id="login-screen" class="flex-1 flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold tracking-tight text-[#2D5A43]">MINISTÉRIO HANGAR</h1>
+                <p class="text-xs text-slate-500 font-medium mt-1">Gerenciamento de Adolescentes</p>
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">E-mail ou Usuário</label>
+                    <input type="text" required placeholder="admin@hangar.com" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D5A43]">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Senha</label>
+                    <input type="password" required placeholder="••••••••" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D5A43]">
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-[#2D5A43] hover:bg-[#234734] text-white font-semibold rounded-lg text-sm transition-colors shadow-sm mt-2">
+                    Entrar no Sistema
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= 2. DASHBOARD / PAINEL ================= -->
+    <div id="app-screen" class="hidden flex min-h-screen">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-64 bg-white border-r border-slate-200 p-6 flex flex-col justify-between shrink-0">
+            <div>
+                <div class="mb-8">
+                    <h1 class="text-xl font-bold tracking-tight text-[#2D5A43]">MINISTÉRIO HANGAR</h1>
+                    <p class="text-xs text-slate-500 font-medium mt-1">Adolescentes</p>
+                </div>
+
+                <!-- Links do Menu -->
+                <nav class="space-y-1">
+                    <button onclick="switchTab('dashboard', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 bg-[#E8F3ED] text-[#2D5A43] font-semibold rounded-lg text-sm transition-colors">
+                        <i data-lucide="layout-grid" class="w-5 h-5"></i> Dashboard
+                    </button>
+                    <button onclick="switchTab('adolescentes', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="user" class="w-5 h-5"></i> Adolescentes
+                    </button>
+                    <button onclick="switchTab('pequenos-grupos', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="users" class="w-5 h-5"></i> Pequenos Grupos
+                    </button>
+                    <button onclick="switchTab('voluntariado', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="user-plus" class="w-5 h-5"></i> Voluntariado
+                    </button>
+                    <button onclick="switchTab('mentorias', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="graduation-cap" class="w-5 h-5"></i> Mentorias
+                    </button>
+                    <button onclick="switchTab('visitantes', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="user-check" class="w-5 h-5"></i> Visitantes
+                    </button>
+                    <button onclick="switchTab('eventos', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="calendar" class="w-5 h-5"></i> Eventos
+                    </button>
+                    <button onclick="switchTab('acampamentos', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="tent" class="w-5 h-5"></i> Acampamentos
+                    </button>
+                    <button onclick="switchTab('relatorios', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5"></i> Relatórios
+                    </button>
+                    <button onclick="switchTab('configuracoes', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="settings" class="w-5 h-5"></i> Configurações
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Footer Sidebar (Botão de Logout) -->
+            <div class="border-t border-slate-100 pt-4 mt-6">
+                <button onclick="handleLogout()" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-rose-50 text-slate-700 hover:text-rose-600 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                            <i data-lucide="user" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-xs font-semibold">Admin Hangar</p>
+                            <p class="text-[10px] text-slate-400">Sair do sistema</p>
+                        </div>
+                    </div>
+                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ÁREA DE CONTEÚDO DINÂMICO -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            
+            <!-- 1. Aba: Dashboard -->
+            <section id="tab-dashboard" class="tab-content">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Dashboard</h2>
+                        <p class="text-xs text-slate-500 font-medium">Visão geral do ministério</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button class="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                        <button class="flex items-center gap-2 px-4 py-2 bg-[#2D5A43] hover:bg-[#234734] text-white text-xs font-semibold rounded-lg transition-colors">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            Novo Adolescente
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Métricas (Zeradadas) -->
+                <div class="grid grid-cols-6 gap-4 mb-6">
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-2.5 bg-green-50 rounded-full text-green-600"><i data-lucide="users" class="w-5 h-5"></i></div>
+                        <div><span class="text-xl font-bold text-slate-800">0</span><p class="text-xs text-slate-400 font-medium">Total</p></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-2.5 bg-blue-50 rounded-full text-blue-500"><i data-lucide="mars" class="w-5 h-5"></i></div>
+                        <div><span class="text-xl font-bold text-slate-800">0</span><p class="text-xs text-slate-400 font-medium">Meninos</p></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-2.5 bg-pink-50 rounded-full text-pink-500"><i data-lucide="venus" class="w-5 h-5"></i></div>
+                        <div><span class="text-xl font-bold text-slate-800">0</span><p class="text-xs text-slate-400 font-medium">Meninas</p></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-2.5 bg-emerald-50 rounded-full text-emerald-500"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
+                        <div><span class="text-xl font-bold text-slate-800">0</span><p class="text-xs text-slate-400 font-medium">Ativos</p></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-2.5 bg-purple-50 rounded-full text-purple-500"><i data-lucide="user-check" class="w-5 h-5"></i></div>
+                        <div><span class="text-xl font-bold text-slate-800">0</span><p class="text-xs text-slate-400 font-medium">Membros</p></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-2.5 bg-amber-50 rounded-full text-amber-500"><i data-lucide="eye" class="w-5 h-5"></i></div>
+                        <div><span class="text-xl font-bold text-slate-800">0</span><p class="text-xs text-slate-400 font-medium">Visitantes</p></div>
+                    </div>
+                </div>
+
+                <!-- Painel de Filtros -->
+                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="relative flex-1">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" placeholder="Buscar por nome..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#2D5A43]">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label class="text-[10px] text-slate-400 font-semibold mb-0.5">Gênero</label>
+                            <select class="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-md text-slate-600 focus:outline-none">
+                                <option>Todos</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label class="text-[10px] text-slate-400 font-semibold mb-0.5">Engajamento</label>
+                            <select class="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-md text-slate-600 focus:outline-none">
+                                <option>Todos</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label class="text-[10px] text-slate-400 font-semibold mb-0.5">Status</label>
+                            <select class="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-md text-slate-600 focus:outline-none">
+                                <option>Todos</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label class="text-[10px] text-slate-400 font-semibold mb-0.5">Idade</label>
+                            <select class="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-md text-slate-600 focus:outline-none">
+                                <option>Todas</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label class="text-[10px] text-slate-400 font-semibold mb-0.5">Pequeno Grupo</label>
+                            <select class="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-md text-slate-600 focus:outline-none">
+                                <option>Todos</option>
+                            </select>
+                        </div>
+
+                        <button class="flex items-center gap-1.5 px-3 py-1.5 mt-4 border border-slate-200 text-slate-500 rounded-md text-xs hover:bg-slate-50 font-medium">
+                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                            Limpar
+                        </button>
+                    </div>
+                    <div class="mt-3 text-[11px] text-slate-400 font-medium">
+                        Mostrando 0 de 0 adolescentes
+                    </div>
+                </div>
+
+                <!-- Tabela de Dados (Sem registros) -->
+                <div class="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-100 bg-slate-50/50 text-[11px] uppercase tracking-wider text-slate-400 font-semibold">
+                                <th class="py-3 px-4">Nome <i data-lucide="chevrons-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="py-3 px-4">Idade <i data-lucide="chevrons-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="py-3 px-4">Telefone <i data-lucide="chevrons-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="py-3 px-4">Frequência <i data-lucide="chevrons-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="py-3 px-4">Presenças <i data-lucide="chevrons-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="py-3 px-4">Voluntariado</th>
+                                <th class="py-3 px-4">Pequeno Grupo</th>
+                                <th class="py-3 px-4 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-xs text-slate-600 font-medium">
+                            <tr>
+                                <td colspan="8" class="py-12 text-center text-slate-400 font-medium">
+                                    Nenhum adolescente encontrado.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. Aba: Adolescentes -->
+            <section id="tab-adolescentes" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-slate-900">Gestão de Adolescentes</h2>
+                <p class="text-xs text-slate-500 mb-6">Lista detalhada e cadastramento de adolescentes.</p>
+                <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+                    <p class="text-sm text-slate-600">Módulo de Adolescentes zerado e pronto para receber dados.</p>
+                </div>
+            </section>
+
+            <!-- Outras abas -->
+            <section id="tab-pequenos-grupos" class="tab-content hidden"><h2 class="text-2xl font-bold text-slate-900">Pequenos Grupos</h2></section>
+            <section id="tab-voluntariado" class="tab-content hidden"><h2 class="text-2xl font-bold text-slate-900">Voluntariado</h2></section>
+            <section id="tab-mentorias" class="tab-content hidden"><h2 class="text-2xl font-bold text-slate-900">Mentorias</h2></section>
+            <section id="tab-visitantes" class="tab-content hidden"><h2 class="text-2xl font-bold text-slate-900">Visitantes</h2></section>
+            <section id="tab-eventos" class="tab-content hidden"><h2 class="text-2xl font-bold text-slate-900">Eventos</h2></section>
+            <section id="tab-acampamentos" class="tab-content hidden"><h2 class="text-2xl font-bold text-slate-900">Acampamentos</h2></section>
+            <section id="tab-relatorios" class="tab-content hidden"><h2 class="text-2xl font-bold text-slate-900">Relatórios</h2></section>
+            <section id="tab-configuracoes" class="tab-content hidden"><h2 class="text-2xl font-bold text-slate-900">Configurações</h2></section>
+
+        </main>
+    </div>
+
+    <!-- SCRIPT DE LÓGICA -->
+    <script>
+        lucide.createIcons();
+
+        function handleLogin(event) {
+            event.preventDefault();
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('app-screen').classList.remove('hidden');
+        }
+
+        function handleLogout() {
+            document.getElementById('app-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+        }
+
+        function switchTab(tabId, element) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            const target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.className = "nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors";
+            });
+
+            element.className = "nav-btn w-full flex items-center gap-3 px-3 py-2.5 bg-[#E8F3ED] text-[#2D5A43] font-semibold rounded-lg text-sm transition-colors";
+        }
+    </script>
+</body>
+</html>
