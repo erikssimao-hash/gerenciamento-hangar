@@ -38,7 +38,7 @@
     <!-- ================= 2. DASHBOARD / PAINEL ================= -->
     <div id="app-screen" class="hidden flex min-h-screen relative">
         
-        <!-- OVERLAY MOBILE (Fundo escuro ao abrir menu) -->
+        <!-- OVERLAY MOBILE -->
         <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden transition-opacity"></div>
 
         <!-- SIDEBAR -->
@@ -68,6 +68,9 @@
                     </button>
                     <button onclick="switchTab('voluntariado', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
                         <i data-lucide="user-plus" class="w-5 h-5"></i> Voluntariado
+                    </button>
+                    <button onclick="switchTab('equipes', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
+                        <i data-lucide="network" class="w-5 h-5"></i> Equipes (Org)
                     </button>
                     <button onclick="switchTab('mentorias', this)" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 font-medium rounded-lg text-sm transition-colors">
                         <i data-lucide="graduation-cap" class="w-5 h-5"></i> Mentorias
@@ -109,10 +112,9 @@
         <!-- ÁREA DE CONTEÚDO DINÂMICO -->
         <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
             
-            <!-- 1. Aba: Dashboard -->
+            <!-- ================= ABA: DASHBOARD ================= -->
             <section id="tab-dashboard" class="tab-content">
                 
-                <!-- Cabeçalho (com menu mobile) -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
                     <div class="flex items-center gap-3">
                         <button onclick="toggleSidebar()" class="lg:hidden p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 shadow-sm">
@@ -162,7 +164,7 @@
                     </div>
                 </div>
 
-                <!-- Painel de Filtros (Empilhados no Mobile, Linha no Desktop) -->
+                <!-- Painel de Filtros -->
                 <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm mb-6">
                     <div class="flex flex-col lg:flex-row lg:items-end gap-3">
                         <div class="relative flex-1">
@@ -213,7 +215,7 @@
                     </div>
                 </div>
 
-                <!-- Tabela com Scroll Lateral Exclusivo para Mobile -->
+                <!-- Tabela -->
                 <div class="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse min-w-[800px]">
@@ -241,7 +243,109 @@
                 </div>
             </section>
 
-            <!-- Demais abas ocultas para manter o protótipo leve -->
+            <!-- ================= ABA: EQUIPES (Novo Organograma) ================= -->
+            <section id="tab-equipes" class="tab-content hidden">
+                
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleSidebar()" class="lg:hidden p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 shadow-sm">
+                            <i data-lucide="menu" class="w-5 h-5"></i>
+                        </button>
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Estrutura de Equipes</h2>
+                            <p class="text-xs md:text-sm text-slate-500 font-medium">Organograma Geral</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Liderança Central -->
+                <div class="flex justify-center mb-8">
+                    <div class="bg-[#85E0A3] text-slate-900 px-10 py-5 rounded-xl shadow-md text-center w-full max-w-sm border border-[#6BC98A]">
+                        <h3 class="text-lg font-bold">Liderança</h3>
+                    </div>
+                </div>
+
+                <!-- Grid de Pilares (4 colunas) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                    
+                    <!-- PILAR 1: Comunicação -->
+                    <div class="flex flex-col gap-3">
+                        <div class="bg-teal-100 border border-teal-200 p-4 rounded-xl shadow-sm text-center">
+                            <h4 class="font-bold text-teal-900 text-sm">Comunicação</h4>
+                        </div>
+                        
+                        <div class="pl-4 border-l-2 border-teal-200 space-y-3">
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Fotografia</h5>
+                            </div>
+                            <div class="flex justify-center"><i data-lucide="arrow-down" class="w-4 h-4 text-slate-400"></i></div>
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Design</h5>
+                            </div>
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center mt-3">
+                                <h5 class="text-xs font-bold text-slate-800">Edição</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PILAR 2: Cuidado -->
+                    <div class="flex flex-col gap-3">
+                        <div class="bg-teal-200 border border-teal-300 p-4 rounded-xl shadow-sm text-center">
+                            <h4 class="font-bold text-teal-900 text-sm">Cuidado e pastoreio</h4>
+                        </div>
+                        
+                        <div class="pl-4 border-l-2 border-teal-300 space-y-3">
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Mentorias</h5>
+                            </div>
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Pequenos grupos</h5>
+                            </div>
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Conexão visitantes</h5>
+                            </div>
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Conteúdos</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PILAR 3: Evangelismo e missões -->
+                    <div class="flex flex-col gap-3">
+                        <div class="bg-teal-200 border border-teal-300 p-4 rounded-xl shadow-sm text-center">
+                            <h4 class="font-bold text-teal-900 text-sm">Evangelismo e missões</h4>
+                        </div>
+                        
+                        <div class="pl-4 border-l-2 border-teal-300 space-y-3">
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Pequenos grupos</h5>
+                            </div>
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Ações sociais</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PILAR 4: Programação geral -->
+                    <div class="flex flex-col gap-3">
+                        <div class="bg-teal-200 border border-teal-300 p-4 rounded-xl shadow-sm text-center">
+                            <h4 class="font-bold text-teal-900 text-sm">Programação geral</h4>
+                        </div>
+                        
+                        <div class="pl-4 border-l-2 border-teal-300 space-y-3">
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Banda</h5>
+                            </div>
+                            <div class="bg-sky-200 border border-sky-300 p-3 rounded-lg shadow-sm text-center">
+                                <h5 class="text-xs font-bold text-slate-800">Som</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Demais abas ocultas -->
             <section id="tab-adolescentes" class="tab-content hidden"><h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-6">Gestão de Adolescentes</h2></section>
             <section id="tab-pequenos-grupos" class="tab-content hidden"><h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-6">Pequenos Grupos</h2></section>
             <section id="tab-voluntariado" class="tab-content hidden"><h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-6">Voluntariado</h2></section>
@@ -255,7 +359,7 @@
         </main>
     </div>
 
-    <!-- SCRIPT DE LÓGICA -->
+    <!-- SCRIPT DE LÓGICA (Corrigido e Completo) -->
     <script>
         lucide.createIcons();
 
@@ -269,24 +373,20 @@
             document.getElementById('app-screen').classList.add('hidden');
             document.getElementById('login-screen').classList.remove('hidden');
             
-            // Garante que o menu mobile esteja fechado ao deslogar
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
         }
 
-        // Função para abrir/fechar menu no Mobile
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
             
             if (sidebar.classList.contains('-translate-x-full')) {
-                // Abrir
                 sidebar.classList.remove('-translate-x-full');
                 overlay.classList.remove('hidden');
             } else {
-                // Fechar
                 sidebar.classList.add('-translate-x-full');
                 overlay.classList.add('hidden');
             }
@@ -308,7 +408,6 @@
 
             element.className = "nav-btn w-full flex items-center gap-3 px-3 py-2.5 bg-[#E8F3ED] text-[#2D5A43] font-semibold rounded-lg text-sm transition-colors";
             
-            // Fecha a barra lateral automaticamente no celular após clicar num link
             if (window.innerWidth < 1024) { 
                 toggleSidebar(); 
             }
